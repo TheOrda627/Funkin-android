@@ -39,6 +39,8 @@ import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
+import Replay.KeyPress;
+import Replay.KeyRelease;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
@@ -196,6 +198,8 @@ class PlayState extends MusicBeatState
 	var wstageFront:FlxSprite;
 	public static var repPresses:Int = 0;
 	public static var repReleases:Int = 0;
+	
+	public static var campaignScore:Int = 0;
 
 	//for test song cuz it sucks. 4 bfs :)
 	private var boyfriend2:Boyfriend;
