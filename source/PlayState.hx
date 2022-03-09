@@ -66,6 +66,7 @@ class PlayState extends MusicBeatState
 	var songLength:Float = 0;
 	var kadeEngineWatermark:FlxText;
 	
+	public static var rep:Replay;
 	public static var loadRep:Bool = false;
 
 	var halloweenLevel:Bool = false;
@@ -140,7 +141,7 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
-	var scoreTxt:FlxText;
+	var scoreTxt:FlxText
 	
 	var perfectTxt:FlxText;
 	var rankTxt:FlxText;
@@ -153,7 +154,6 @@ class PlayState extends MusicBeatState
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
 
-	var inCutscene:Bool = false;
 	var disabledKeys:Bool = false;
 
 	#if desktop
@@ -999,7 +999,7 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-      if (SONG.stage == 'ballisticAlley')
+				if (SONG.song.toLowerCase() == 'ballistic')
 					{
 						wBg.alpha = 0;
 						nwBg.alpha = 1;
