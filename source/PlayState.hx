@@ -62,6 +62,9 @@ class PlayState extends MusicBeatState
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
 	var osuScroll:Bool;
+	
+	var songLength:Float = 0;
+	var kadeEngineWatermark:FlxText;
 
 	var halloweenLevel:Bool = false;
 	var triggeredAlready:Bool = false;
@@ -182,6 +185,15 @@ class PlayState extends MusicBeatState
 	var tankBop5:FlxSprite;
 	var tankBop6:FlxSprite;
 	//end of tankbop
+	
+	public static var theFunne:Bool = true;
+	var funneEffect:FlxSprite;
+	var inCutscene:Bool = false;
+	var wBg:FlxSprite;
+	var nwBg:FlxSprite;
+	var wstageFront:FlxSprite;
+	public static var repPresses:Int = 0;
+	public static var repReleases:Int = 0;
 
 	//for test song cuz it sucks. 4 bfs :)
 	private var boyfriend2:Boyfriend;
@@ -247,6 +259,12 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
+			case 'lo-fight' | 'lo-fight-b-side':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('lo-fight/pleaseSubscribe'));
+			case 'overhead' | 'overhead-b-side':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('overhead/pleaseSubscribe'));
+			case 'ballistic' | 'ballistic-b-side':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('ballistic/pleaseSubscribe'));
 		}
 
 		#if desktop
@@ -1002,7 +1020,7 @@ class PlayState extends MusicBeatState
 					
 			switch (SONG.song.toLowerCase())
 			{
-				case: 'ballistic':
+				case 'ballistic':
 				  turnToCrazyWhitty();
 				  startCountdown();
 				default:
