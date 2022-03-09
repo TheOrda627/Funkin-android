@@ -553,270 +553,57 @@ class PlayState extends MusicBeatState
 				bg.scale.set(6, 6);
 				add(bg);
 			}
-			case 'ugh' | 'guns': 
-			{
-				curStage = 'tankStage';
-				defaultCamZoom = 0.9;
-				var sky:FlxSprite = new FlxSprite(-400,-400).loadGraphic(Paths.image('tankSky'));
-				sky.scrollFactor.set(0, 0);
-				sky.antialiasing = true;
-				sky.setGraphicSize(Std.int(sky.width * 1.5));
-				add(sky);
-
-				var clouds:FlxSprite = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20)).loadGraphic(Paths.image('tankClouds'));
-				clouds.scrollFactor.set(0.1, 0.1);
-				clouds.velocity.x = FlxG.random.float(5, 15);
-				clouds.antialiasing = true;
-				clouds.updateHitbox();
-				add(clouds);
-
-				var mountains:FlxSprite = new FlxSprite(-300,-20).loadGraphic(Paths.image('tankMountains'));
-				mountains.scrollFactor.set(0.2, 0.2);
-				mountains.setGraphicSize(Std.int(1.2 * mountains.width));
-				mountains.updateHitbox();
-				mountains.antialiasing = true;
-				add(mountains);
-
-				var buildings:FlxSprite = new FlxSprite(-200,0).loadGraphic(Paths.image('tankBuildings'));
-				buildings.scrollFactor.set(0.3, 0.3);
-				buildings.setGraphicSize(Std.int(buildings.width * 1.1));
-				buildings.updateHitbox();
-				buildings.antialiasing = true;
-				add(buildings);
-
-				var ruins:FlxSprite = new FlxSprite(-200,0).loadGraphic(Paths.image('tankRuins'));
-				ruins.scrollFactor.set(0.35, 0.35);
-				ruins.setGraphicSize(Std.int(ruins.width * 1.1));
-				ruins.updateHitbox();
-				ruins.antialiasing = true;
-				add(ruins);
-
-
-				var smokeLeft:FlxSprite = new FlxSprite(-200,-100);
-				smokeLeft.frames = Paths.getSparrowAtlas('smokeLeft');
-				smokeLeft.animation.addByPrefix('idle', 'SmokeBlurLeft ', 24, true);
-				smokeLeft.scrollFactor.set(0.4, 0.4);
-				smokeLeft.antialiasing = true;
-				smokeLeft.animation.play('idle');
 				
-				add(smokeLeft);
+      case 'alley' | 'ballisticAlley':
+        {
+          	defaultCamZoom = 0.9;
+            curStage = 'whitty';
+            wBg = new FlxSprite(-500, -300).loadGraphic(Paths.image('whittyBack', 'bonusWeek'));
 
-				var smokeRight:FlxSprite = new FlxSprite(1100,-100);
-				smokeRight.frames = Paths.getSparrowAtlas('smokeRight');
-				smokeRight.animation.addByPrefix('idle', 'SmokeRight ', 24, true);
-				smokeRight.scrollFactor.set(0.4, 0.4);
-				smokeRight.antialiasing = true;
-				smokeRight.animation.play('idle');
-				
-				add(smokeRight);
+            if (SONG.stage == 'ballisticAlley')
+            {
+              trace('pogging');
+              var bgTex = Paths.getSparrowAtlas('BallisticBackground', 'bonusWeek');
+              nwBg = new FlxSprite(-600, -200);
+              nwBg.frames = bgTex;
+              nwBg.antialiasing = true;
+              nwBg.scrollFactor.set(0.9, 0.9);
+              nwBg.active = true;
+              nwBg.animation.addByPrefix('start', 'Background Whitty Start', 24, false);
+              nwBg.animation.addByPrefix('gaming', 'Background Whitty Startup', 24, false);
+              nwBg.animation.addByPrefix('gameButMove', 'Background Whitty Moving', 16, true);
+              add(wBg);
+              add(nwBg);
+              nwBg.alpha = 0;
+              wstageFront = new FlxSprite(-650, 600).loadGraphic(Paths.image('whittyFront', 'bonusWeek'));
+              wstageFront.setGraphicSize(Std.int(wstageFront.width * 1.1));
+              wstageFront.updateHitbox();
+              wstageFront.antialiasing = true;
+              wstageFront.scrollFactor.set(0.9, 0.9);
+              wstageFront.active = false;
+              add(wBg);
+              add(wstageFront);
+            }
+            else
+            {
+              wBg.antialiasing = true;
+              wBg.scrollFactor.set(0.9, 0.9);
+              wBg.active = false;
 
-
-				var tankWatchtower:FlxSprite = new FlxSprite(100,120);
-				tankWatchtower.frames = Paths.getSparrowAtlas('tankWatchtower');
-				tankWatchtower.animation.addByPrefix('bop', 'watchtower gradient color instance 1', 24, true);
-				tankWatchtower.scrollFactor.set(0.5, 0.5);
-				tankWatchtower.antialiasing = true;
-			
-				add(tankWatchtower);
-				
-				tankRolling = new FlxSprite(300,300);
-				tankRolling.frames = Paths.getSparrowAtlas('tankRolling');
-				tankRolling.animation.addByPrefix('idle', 'BG tank w lighting ', 24, true);
-						tankRolling.scrollFactor.set(0.5, 0.5);
-				tankRolling.antialiasing = true;
-				tankRolling.animation.play('idle');
-				add(tankRolling);
-
-
-				var ground:FlxSprite = new FlxSprite(-420, -150).loadGraphic(Paths.image('tankGround'));
-				ground.scrollFactor.set();
-				ground.antialiasing = true;
-				ground.setGraphicSize(Std.int(ground.width * 1.15));
-				ground.scrollFactor.set(1, 1);
-				
-				ground.updateHitbox();
-				add(ground);
-
-				tankBop1 = new FlxSprite(-500,650);
-				tankBop1.frames = Paths.getSparrowAtlas('tank0');
-				tankBop1.animation.addByPrefix('bop', 'fg tankhead far right instance 1', 24);
-				tankBop1.scrollFactor.set(1.7, 1.5);
-				tankBop1.antialiasing = true;
-
-				tankBop2 = new FlxSprite(-300,750);
-				tankBop2.frames = Paths.getSparrowAtlas('tank1');
-				tankBop2.animation.addByPrefix('bop','fg tankhead 5 instance 1', 24);
-				tankBop2.scrollFactor.set(2.0, 0.2);
-				tankBop2.antialiasing = true;
-
-				tankBop3 = new FlxSprite(450,940);
-				tankBop3.frames = Paths.getSparrowAtlas('tank2');
-				tankBop3.animation.addByPrefix('bop','foreground man 3 instance 1', 24);
-				tankBop3.scrollFactor.set(1.5, 1.5);
-				tankBop3.antialiasing = true;
-
-				tankBop4 = new FlxSprite(1300,1200);
-				tankBop4.frames = Paths.getSparrowAtlas('tank3');
-				tankBop4.animation.addByPrefix('bop','fg tankhead 4 instance 1', 24);
-				tankBop4.scrollFactor.set(3.5, 2.5);
-				tankBop4.antialiasing = true;
-
-				tankBop5 = new FlxSprite(1300,900);
-				tankBop5.frames = Paths.getSparrowAtlas('tank4');
-				tankBop5.animation.addByPrefix('bop','fg tankman bobbin 3 instance 1', 24);
-				tankBop5.scrollFactor.set(1.5, 1.5);
-				tankBop5.antialiasing = true;
-
-				tankBop6 = new FlxSprite(1620,700);
-				tankBop6.frames = Paths.getSparrowAtlas('tank5');
-				tankBop6.animation.addByPrefix('bop','fg tankhead far right instance 1', 24);
-				tankBop6.scrollFactor.set(1.5, 1.5);
-				tankBop6.antialiasing = true;
-
-				tankWatchtower.animation.play('bop');
-				tankBop1.animation.play('bop');
-				tankBop2.animation.play('bop');
-				tankBop3.animation.play('bop');
-				tankBop4.animation.play('bop');
-				tankBop5.animation.play('bop');
-				tankBop6.animation.play('bop');
-
-				}
-				case 'stress': 
-				{
-					curStage = 'tankStage2';
-					defaultCamZoom = 0.9;
-
-					picoStep = Json.parse(openfl.utils.Assets.getText(Paths.json('stress/picospeaker')));
-					tankStep = Json.parse(openfl.utils.Assets.getText(Paths.json('stress/tankSpawn')));
-
-					var sky:FlxSprite = new FlxSprite(-400,-400).loadGraphic(Paths.image('tankSky'));
-					sky.scrollFactor.set(0, 0);
-					sky.antialiasing = true;
-					sky.setGraphicSize(Std.int(sky.width * 1.5));
-					add(sky);
-
-					var clouds:FlxSprite = new FlxSprite(FlxG.random.int(-700, -100), FlxG.random.int(-20, 20)).loadGraphic(Paths.image('tankClouds'));
-					clouds.scrollFactor.set(0.1, 0.1);
-					clouds.velocity.x = FlxG.random.float(5, 15);
-					clouds.antialiasing = true;
-					clouds.updateHitbox();
-					add(clouds);
-
-					var mountains:FlxSprite = new FlxSprite(-300,-20).loadGraphic(Paths.image('tankMountains'));
-					mountains.scrollFactor.set(0.2, 0.2);
-					mountains.setGraphicSize(Std.int(1.2 * mountains.width));
-					mountains.updateHitbox();
-					mountains.antialiasing = true;
-					add(mountains);
-
-					var buildings:FlxSprite = new FlxSprite(-200,0).loadGraphic(Paths.image('tankBuildings'));
-					buildings.scrollFactor.set(0.3, 0.3);
-					buildings.setGraphicSize(Std.int(buildings.width * 1.1));
-					buildings.updateHitbox();
-					buildings.antialiasing = true;
-					add(buildings);
-
-					var ruins:FlxSprite = new FlxSprite(-200,0).loadGraphic(Paths.image('tankRuins'));
-					ruins.scrollFactor.set(0.35, 0.35);
-					ruins.setGraphicSize(Std.int(ruins.width * 1.1));
-					ruins.updateHitbox();
-					ruins.antialiasing = true;
-					add(ruins);
-
-
-					var smokeLeft:FlxSprite = new FlxSprite(-200,-100);
-					smokeLeft.frames = Paths.getSparrowAtlas('smokeLeft');
-					smokeLeft.animation.addByPrefix('idle', 'SmokeBlurLeft ', 24, true);
-					smokeLeft.scrollFactor.set(0.4, 0.4);
-					smokeLeft.antialiasing = true;
-					smokeLeft.animation.play('idle');
-					
-					add(smokeLeft);
-
-					var smokeRight:FlxSprite = new FlxSprite(1100,-100);
-					smokeRight.frames = Paths.getSparrowAtlas('smokeRight');
-					smokeRight.animation.addByPrefix('idle', 'SmokeRight ', 24, true);
-					smokeRight.scrollFactor.set(0.4, 0.4);
-					smokeRight.antialiasing = true;
-					smokeRight.animation.play('idle');
-					
-					add(smokeRight);
-
-
-					var tankWatchtower:FlxSprite = new FlxSprite(100,120);
-					tankWatchtower.frames = Paths.getSparrowAtlas('tankWatchtower');
-					tankWatchtower.animation.addByPrefix('bop', 'watchtower gradient color instance 1', 24, true);
-					tankWatchtower.scrollFactor.set(0.5, 0.5);
-					tankWatchtower.antialiasing = true;
-
-					add(tankWatchtower);
-					
-					tankRolling = new FlxSprite(300,300);
-					tankRolling.frames = Paths.getSparrowAtlas('tankRolling');
-					tankRolling.animation.addByPrefix('idle', 'BG tank w lighting ', 24, true);
-					tankRolling.scrollFactor.set(0.5, 0.5);
-					tankRolling.antialiasing = true;
-					tankRolling.animation.play('idle');
-					add(tankRolling);
-					tankmanRun = new FlxTypedGroup<TankmenBG>();
-					add(tankmanRun);
-
-
-					var ground:FlxSprite = new FlxSprite(-420,-150).loadGraphic(Paths.image('tankGround'));
-					ground.scrollFactor.set();
-					ground.antialiasing = true;
-					ground.setGraphicSize(Std.int(ground.width * 1.15));
-					ground.scrollFactor.set(1, 1);
-					
-					ground.updateHitbox();
-					add(ground);
-
-					tankBop1 = new FlxSprite(-500,650);
-					tankBop1.frames = Paths.getSparrowAtlas('tank0');
-					tankBop1.animation.addByPrefix('bop', 'fg tankhead far right instance 1', 24);
-					tankBop1.scrollFactor.set(1.7, 1.5);
-					tankBop1.antialiasing = true;
-
-					tankBop2 = new FlxSprite(-300,750);
-					tankBop2.frames = Paths.getSparrowAtlas('tank1');
-					tankBop2.animation.addByPrefix('bop','fg tankhead 5 instance 1', 24);
-					tankBop2.scrollFactor.set(2.0, 0.2);
-					tankBop2.antialiasing = true;
-
-					tankBop3 = new FlxSprite(450,940);
-					tankBop3.frames = Paths.getSparrowAtlas('tank2');
-					tankBop3.animation.addByPrefix('bop','foreground man 3 instance 1', 24);
-					tankBop3.scrollFactor.set(1.5, 1.5);
-					tankBop3.antialiasing = true;
-
-					tankBop4 = new FlxSprite(1300,1200);
-					tankBop4.frames = Paths.getSparrowAtlas('tank3');
-					tankBop4.animation.addByPrefix('bop','fg tankhead 4 instance 1', 24);
-					tankBop4.scrollFactor.set(3.5, 2.5);
-					tankBop4.antialiasing = true;
-
-					tankBop5 = new FlxSprite(1300,900);
-					tankBop5.frames = Paths.getSparrowAtlas('tank4');
-					tankBop5.animation.addByPrefix('bop','fg tankman bobbin 3 instance 1', 24);
-					tankBop5.scrollFactor.set(1.5, 1.5);
-					tankBop5.antialiasing = true;
-
-					tankBop6 = new FlxSprite(1620,700);
-					tankBop6.frames = Paths.getSparrowAtlas('tank5');
-					tankBop6.animation.addByPrefix('bop','fg tankhead far right instance 1', 24);
-					tankBop6.scrollFactor.set(1.5, 1.5);
-					tankBop6.antialiasing = true;
-
-					tankWatchtower.animation.play('bop');
-					tankBop1.animation.play('bop');
-					tankBop2.animation.play('bop');
-					tankBop3.animation.play('bop');
-					tankBop4.animation.play('bop');
-					tankBop5.animation.play('bop');
-					tankBop6.animation.play('bop');
-
-				}
+              wstageFront = new FlxSprite(-650, 600).loadGraphic(Paths.image('whittyFront', 'bonusWeek'));
+              wstageFront.setGraphicSize(Std.int(wstageFront.width * 1.1));
+              wstageFront.updateHitbox();
+              wstageFront.antialiasing = true;
+              wstageFront.scrollFactor.set(0.9, 0.9);
+              wstageFront.active = false;
+              add(wBg);
+              add(wstageFront);
+            }
+            // bg.setGraphicSize(Std.int(bg.width * 2.5));
+            // bg.updateHitbox();   
+        
+        }
+        
 				default:
 				{
 					defaultCamZoom = 0.9;
@@ -846,47 +633,44 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+		var isBside:Bool = SONG.song.toLowerCase().contains('b-side');
+		// leaks for the people who read source code lol!
+		
 		var gfVersion:String = 'gf';
 
-		switch (curStage)
+		switch (SONG.gfVersion)
 		{
-			case 'limo':
+			case 'gf-car':
 				gfVersion = 'gf-car';
-			case 'mall' | 'mallEvil':
+			case 'gf-christmas':
 				gfVersion = 'gf-christmas';
-			case 'school':
+			case 'gf-pixel':
 				gfVersion = 'gf-pixel';
-			case 'schoolEvil':
-				gfVersion = 'gf-pixel';
-			case 'tankStage':
-				gfVersion = 'gf-tankman';
-			case 'tankStage2':
-				gfVersion = 'picoSpeaker';
+			case 'gf-kinky':
+				gfVersion = 'gf-kinky';
+			case 'whitty':
+				gfVersion = 'gf-whitty';
+			case 'gf':
+				gfVersion = 'gf';
+			default:
+				gfVersion = 'gf';
 		}
 
 		if (curStage == 'limo')
 			gfVersion = 'gf-car';
 
-		if (curStage == 'tankStage')
-			gfVersion = 'gf-tankman';
-
-		if (curStage == 'tankStage2')
-			gfVersion = 'picoSpeaker';
-
 		gf = new Character(400, 130, gfVersion);
+		
+		if(isBside)
+			gf = new Character(400,130,'gf-whitty-bside');
+			
 		gf.scrollFactor.set(0.95, 0.95);
 
-		if (SONG.song.toLowerCase() == 'test'){
-			dad = new Character(100, 550, 'bf-pixel');
-			pixel2 = new Character(120, 450, 'bf');
-			pixel2.alpha = 0.5;
-		}
-		else{
-			dad = new Character(100, 100, SONG.player2);
-		}
+		dad = new Character(100, 100, SONG.player2);
+			
+		trace(dad.curCharacter);
 
 		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
-
 		switch (SONG.player2)
 		{
 			case 'gf':
@@ -906,6 +690,10 @@ class PlayState extends MusicBeatState
 				dad.y += 130;
 			case 'dad':
 				camPos.x += 400;
+			case 'whitty':
+				camPos.x += 400;
+			case 'whittyCrazy':
+				camPos.x += 400;
 			case 'pico':
 				camPos.x += 600;
 				dad.y += 300;
@@ -923,16 +711,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
-			case 'tankman':
-				//dad.x = dad.x
-				dad.y += 180;
 		}
 
-		if (SONG.song.toLowerCase() == 'test'){
-			boyfriend = new Boyfriend(770, 450, 'bf');
-			boyfriend2 = new Boyfriend(750, 550, 'bf-pixel');
-			boyfriend2.alpha = 0.5;
-		}
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
 
 		// REPOSITIONING PER STAGE
@@ -969,49 +749,28 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
-			case 'tankStage':
-				gf.y += -55;
-				gf.x -= 200;
-
-				boyfriend.x += 40;
-				dad.y += 60;
-				dad.x -= 80;
-			case 'tankStage2':
-				//gf.y += 10;
-				//gf.x -= 30;
-				gf.y += -155;
-				gf.x -= 90;
-
-				boyfriend.x += 40;
-				dad.y += 60;
-				dad.x -= 80;
 		}
 
-		if (!osuScroll){
-			add(gf);
-			if (curStage == 'limo')
-				add(limo);
+		if (isBside)
+			boyfriend = new Boyfriend(770, 450,'bf-bside');
 
-			if (SONG.song.toLowerCase() == 'test'){
-				add(pixel2);
-				add(boyfriend2);
+		if (SONG.player1 == "wide")
+			{
+				boyfriend.y -= 355;
 			}
 
-			add(dad);
-			add(boyfriend);
+		repPresses = 0;
+		repReleases = 0;
 
-			if (curStage == 'tankStage' || curStage == 'tankStage2')
-			{
-			add(tankBop1);
-			add(tankBop2);
-			add(tankBop3);
-			add(tankBop4);
-			add(tankBop5);
-			add(tankBop6);
-		}
-		}
+		add(gf);
+		
+		if (curStage == 'limo')
+			add(limo);
 
+		add(dad);
+		add(boyfriend);
 
+		trace('poggin');
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
@@ -1078,6 +837,12 @@ class PlayState extends MusicBeatState
 		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
 		// healthBar
 		add(healthBar);
+		
+		// Add Kade Engine watermark
+		kadeEngineWatermark = new FlxText(4,healthBarBG.y + 50,0,SONG.song + " " + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy") + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""), 16);
+		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+		kadeEngineWatermark.scrollFactor.set();
+		add(kadeEngineWatermark);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -1158,6 +923,10 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 		{
+				var ballist:Bool = true;
+				if (curSong.toLowerCase() == 'ballistic')
+					FlxG.save.data.seenBallist = ballist;
+					
 			switch (SONG.song.toLowerCase())
 			{
 				case "winter-horrorland":
@@ -1195,84 +964,435 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
-				case 'ugh':
-					ughIntro();
-				case 'guns':
-					gunsIntro();
-				case 'stress':
-					stressIntro();
-				default:
-					startCountdown();
+			    case 'lo-fight':
+						trace('lo-fight animation');
+						whittyAnimation(doof, false);
+					case 'overhead':
+						whittyAnimation(doof, false);
+					case 'ballistic':
+						whittyAnimation(doof, false);
+					case 'b-lo-fight':
+						whittyAnimation(doof, true);
+					case 'b-overhead':
+						whittyAnimation(doof, true);
+					case 'b-ballistic':
+						whittyAnimation(doof, true);
+					default:
+						startCountdown();
 			}
 		}
 		else
 		{
+      if (SONG.stage == 'ballisticAlley')
+					{
+						wBg.alpha = 0;
+						nwBg.alpha = 1;
+						funneEffect = new FlxSprite(-600, -200).loadGraphic(Paths.image('thefunnyeffect', 'bonusWeek'));
+						funneEffect.alpha = 0.5;
+						funneEffect.scrollFactor.set();
+						funneEffect.visible = true;
+						add(funneEffect);
+				
+						funneEffect.cameras = [camHUD];
+
+						trace('funne: ' + funneEffect);
+						nwBg.animation.play("gameButMove");
+						remove(wstageFront);
+					}
+					
 			switch (SONG.song.toLowerCase())
 			{
+				case: 'ballistic':
+				  turnToCrazyWhitty();
+				  startCountdown();
 				default:
 					startCountdown();
 			}
 		}
+		
+		if (!loadRep)
+			rep = new Replay("na");
 
-		defaultCamZoom = FlxG.initialZoom + (defaultCamZoom - 1);
-		FlxG.camera.zoom = defaultCamZoom;
+		if (!loadRep)
+			rep = new Replay("na");
 
 		super.create();
 	}
 
-	function ughIntro()
+	function turnToCrazyWhitty()
 	{
-		if (cutsceneOp){
-			var video = new VideoPlayer('videos/ughcutscene.webm');
-			video.finishCallback = () -> {
-				remove(video);
-				startCountdown();
-			}
-			video.ownCamera();
-			video.setGraphicSize(Std.int(video.width * 2));
-			video.updateHitbox();
-			add(video);
-			video.play();
+
+		remove(iconP2);
+		remove(iconP1);
+		remove(healthBarBG);
+		remove(healthBar);
+
+		iconP2 = new HealthIcon('whittyCrazy', false);
+		iconP2.y = healthBar.y - (iconP2.height / 2);
+
+		iconP1 = new HealthIcon(SONG.player1, true);
+		iconP1.y = healthBar.y - (iconP1.height / 2);
+
+		add(healthBarBG);
+		add(healthBar);
+
+		add(iconP2);
+		add(iconP1);
+
+		iconP1.cameras = [camHUD];
+		iconP2.cameras = [camHUD];
+
+		healthBar.cameras = [camHUD];
+		healthBarBG.cameras = [camHUD];
+
+		remove(dad);
+		remove(gf);
+		dad = new Character(100,100,'whittyCrazy');
+		add(gf);
+		add(dad);
+
+		if (isStoryMode)
+		{
+			iconP1.visible = false;
+			iconP2.visible = false;
 		}
-		else{
-			startCountdown();
-		}
+
 	}
-	function gunsIntro()
+
+
+	function whittyAnimation(?dialogueBox:DialogueBox, bside:Bool):Void
 	{
-		if (cutsceneOp){
-			var video = new VideoPlayer('videos/gunscutscene.webm');
-			video.finishCallback = () -> {
-				remove(video);
-				startCountdown();
-			}
-			video.ownCamera();
-			video.setGraphicSize(Std.int(video.width * 2));
-			video.updateHitbox();
-			add(video);
-			video.play();
+		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.fromRGB(19, 0, 0));
+		black.scrollFactor.set();
+		var black2:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		black2.scrollFactor.set();
+		black2.alpha = 0;
+		var black3:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		black3.scrollFactor.set();
+		if (curSong.toLowerCase() != 'ballistic')
+			add(black);
+
+		var epic:Bool = false;
+		var white:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.WHITE);
+		white.scrollFactor.set();
+		white.alpha = 0;
+
+		trace('what animation to play, hmmmm');
+
+		var wat:Bool = true;
+
+		trace('cur song: ' + curSong);
+
+		switch(curSong.toLowerCase()) // WHITTY ANIMATION CODE LMAOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+		{
+			case 'ballistic' | 'ballistic-b-side':
+				trace('funny ballistic!!!');
+				add(white);
+				trace(white);
+				var noMore:Bool = false;
+				inCutscene = true;
+
+				var wind:FlxSound = new FlxSound().loadEmbedded(Paths.sound('windLmao', 'shared'),true);
+				var mBreak:FlxSound = new FlxSound().loadEmbedded(Paths.sound('micBreak', 'shared'));
+				var mThrow:FlxSound = new FlxSound().loadEmbedded(Paths.sound('micThrow', 'shared'));
+				var mSlam:FlxSound = new FlxSound().loadEmbedded(Paths.sound('slammin', 'shared'));
+				var TOE:FlxSound = new FlxSound().loadEmbedded(Paths.sound('ouchMyToe', 'shared'));
+				var soljaBOY:FlxSound = new FlxSound().loadEmbedded(Paths.sound('souljaboyCrank', 'shared'));
+				var rumble:FlxSound = new FlxSound().loadEmbedded(Paths.sound('rumb', 'shared'));
+
+				remove(dad);
+				var animation:FlxSprite = new FlxSprite(-480,-100);
+				animation.frames = Paths.getSparrowAtlas('cuttinDeezeBalls', 'bonusWeek');
+				animation.animation.addByPrefix('startup', 'Whitty Ballistic Cutscene', 24, false);
+				animation.antialiasing = true;
+				add(animation);
+
+				camFollow.setPosition(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+
+				remove(funneEffect);
+
+				wind.fadeIn();
+				camHUD.visible = false;
+
+				new FlxTimer().start(0.01, function(tmr:FlxTimer)
+					{
+						// animation
+
+						if (!wat)
+							{
+								tmr.reset(1.5);
+								wat = true;
+							}
+						else
+						{
+
+						
+						if (animation.animation.curAnim == null) // check thingy go BEE BOOP
+							{
+								animation.animation.play('startup'); // if beopoe then make go BEP
+								trace('start ' + animation.animation.curAnim.name);
+							}
+						if (!animation.animation.finished && animation.animation.curAnim.name == 'startup') // beep?
+						{
+							tmr.reset(0.01); // fuck
+							noMore = true; // fuck outta here animation
+							trace(animation.animation.frameIndex);
+							switch(animation.animation.frameIndex)
+							{
+								case 87:
+									if (!mThrow.playing)
+										mThrow.play();
+								case 86:
+									if (!mSlam.playing)
+										mSlam.play();
+								case 128:
+									if (!soljaBOY.playing)
+										{
+											soljaBOY.play();
+											remove(wstageFront);
+											nwBg.alpha = 1;
+											wBg.alpha = 0;
+											nwBg.animation.play('gaming');
+											camFollow.camera.shake(0.01, 3);
+										}
+								case 123:
+									if (!rumble.playing)
+										rumble.play();
+								case 135:
+									camFollow.camera.stopFX();
+								case 158:
+									if (!TOE.playing)
+									{
+										TOE.play();
+										camFollow.camera.stopFX();
+										camFollow.camera.shake(0.03, 6);
+									}
+								case 52:
+									if (!mBreak.playing)
+										{
+											mBreak.play();
+										}
+							}
+						}
+						else
+						{
+							// white screen thingy
+
+							camFollow.camera.stopFX();
+
+							if (white.alpha < 1 && !epic)
+							{
+								white.alpha += 0.4;
+								tmr.reset(0.1);
+							}
+							else
+							{
+								if (!epic)
+									{
+										epic = true;
+										trace('epic ' + epic);
+										turnToCrazyWhitty();
+										remove(animation);
+										TOE.fadeOut();
+										tmr.reset(0.1);
+										nwBg.animation.play("gameButMove");
+									}
+								else
+									{
+										if (white.alpha != 0)
+											{
+
+												white.alpha -= 0.1;
+												tmr.reset(0.1);
+											}
+										else 
+										{
+											if (dialogueBox != null)
+												{
+													camHUD.visible = true;
+													wind.fadeOut();
+													healthBar.visible = false;
+													healthBarBG.visible = false;
+													scoreTxt.visible = false;
+													iconP1.visible = false;
+													iconP2.visible = false;
+													add(dialogueBox);
+												}
+												else
+												{
+													startCountdown();
+												}
+												remove(white);
+										}
+									}
+							}
+						}
+					}
+					});
+			case 'lo-fight' | 'lo-fight-b-side':
+				trace('funny lo-fight!!!');
+				inCutscene = true;
+				remove(dad);
+				var animation:FlxSprite = new FlxSprite(-290,-100);
+				animation.frames = Paths.getSparrowAtlas('whittyCutscene','bonusWeek');
+				animation.animation.addByPrefix('startup', 'Whitty Cutscene Startup ', 24, false);
+				animation.antialiasing = true;
+				add(animation);
+				black2.visible = true;
+				black3.visible = true;
+				add(black2);
+				add(black3);
+				black2.alpha = 0;
+				black3.alpha = 0;
+				trace(black2);
+				trace(black3);
+
+				var city:FlxSound = new FlxSound().loadEmbedded(Paths.sound('city', 'shared'), true);
+				var rip:FlxSound = new FlxSound().loadEmbedded(Paths.sound('rip', 'shared'));
+				var fire:FlxSound = new FlxSound().loadEmbedded(Paths.sound('fire', 'shared'));
+				var BEEP:FlxSound = new FlxSound().loadEmbedded(Paths.sound('beepboop', 'shared'));
+				city.fadeIn();
+				camFollow.setPosition(dad.getMidpoint().x + 40, dad.getMidpoint().y - 180);
+
+				camHUD.visible = false;
+
+				gf.y = 90000000;
+				boyfriend.x += 314;
+
+				new FlxTimer().start(0.01, function(tmr:FlxTimer)
+					{
+
+						if (!wat)
+							{
+								tmr.reset(3);
+								wat = true;
+							}
+						else
+						{
+						// animation
+
+						black.alpha -= 0.15;
+			
+						if (black.alpha > 0)
+						{
+							tmr.reset(0.3);
+						}
+						else
+						{
+
+							if (animation.animation.curAnim == null)
+								animation.animation.play('startup');
+
+							if (!animation.animation.finished)
+								{
+									tmr.reset(0.01);
+									trace('animation at frame ' + animation.animation.frameIndex);
+
+									switch(animation.animation.frameIndex)
+									{
+										case 0:
+											trace('play city sounds');
+										case 41:
+											trace('fire');
+											if (!fire.playing)
+												fire.play();
+										case 34:
+											trace('paper rip');
+											if (!rip.playing)
+												rip.play();
+										case 147:
+											trace('BEEP');
+											if (!BEEP.playing)
+												{
+													camFollow.setPosition(dad.getMidpoint().x + 460, dad.getMidpoint().y - 100);
+													BEEP.play();
+													boyfriend.playAnim('singLEFT', true);
+												}
+										case 154:
+											if (boyfriend.animation.curAnim.name != 'idle')
+												boyfriend.playAnim('idle');
+									}
+								}
+							else
+							{
+								// CODE LOL!!!!
+								if (black2.alpha != 1)
+								{
+									black2.alpha += 0.4;
+									tmr.reset(0.1);
+									trace('increase blackness lmao!!!');
+								}
+								else
+								{
+									if (black2.alpha == 1 && black2.visible)
+										{
+											black2.visible = false;
+											black3.alpha = 1;
+											trace('transision ' + black2.visible + ' ' + black3.alpha);
+											remove(animation);
+											add(dad);
+											gf.y = 140;
+											boyfriend.x -= 314;
+											camHUD.visible = true;
+											tmr.reset(0.3);
+										}
+									else if (black3.alpha != 0)
+										{
+											black3.alpha -= 0.1;
+											tmr.reset(0.3);
+											trace('decrease blackness lmao!!!');
+										}
+										else 
+										{
+													if (dialogueBox != null)
+													{
+														add(dialogueBox);
+														city.fadeOut();
+													}
+													else
+													{
+														startCountdown();
+													}
+												remove(black);
+										}
+								}
+							}
+						}
+					}
+					});
+			default:
+				trace('funny *goat looking at camera*!!!');
+				new FlxTimer().start(0.3, function(tmr:FlxTimer)
+					{
+
+						if (!wat)
+							{
+								tmr.reset(3);
+								wat = true;
+							}
+
+						black.alpha -= 0.15;
+			
+						if (black.alpha > 0)
+						{
+							tmr.reset(0.3);
+						}
+						else
+						{
+		
+							if (dialogueBox != null)
+								{
+									inCutscene = true;
+									add(dialogueBox);
+								}
+							remove(black);
+						}
+					});
+			
 		}
-		else{
-			startCountdown();
-		}
-	}
-	function stressIntro()
-	{
-		if (cutsceneOp){
-			var video = new VideoPlayer('videos/stresscutscene.webm');
-			video.finishCallback = () -> {
-				remove(video);
-				startCountdown();
-			}
-			video.ownCamera();
-			video.setGraphicSize(Std.int(video.width * 2));
-			video.updateHitbox();
-			add(video);
-			video.play();
-		}
-		else{
-			startCountdown();
-		}
+
+
+
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -1929,6 +2049,28 @@ class PlayState extends MusicBeatState
 
 		if (health > 2)
 			health = 2;
+			
+	if (curSong.toLowerCase() == 'ballistic')
+			{
+				if (gf.animation.name != 'scared')
+					gf.playAnim('scared');
+			}
+
+		if (curStage == 'ballisticAlley' && health != 2)
+			{
+				funneEffect.alpha = health - 0.3;
+				if (theFunneNumber < 0.7)
+					theFunneNumber = 0.7;
+				else if (theFunneNumber > 1.2)
+					theFunneNumber = 1.2;
+
+				if (theFunneNumber < 1)
+					funneEffect.y = -300;
+				else
+					funneEffect.y = -200;
+
+				funneEffect.setGraphicSize(Std.int(funneEffect.width * theFunneNumber));
+			}
 
 		if (healthBar.percent < 20)
 			iconP1.animation.curAnim.curFrame = 1;
@@ -3223,6 +3365,18 @@ class PlayState extends MusicBeatState
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 		}
+		
+	  if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
+		{
+			FlxG.camera.zoom += 0.015;
+			camHUD.zoom += 0.03;
+		}
+
+		if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 2 == 0 && curSong.toLowerCase() == 'ballistic')
+			{
+				FlxG.camera.zoom += 0.020;
+				camHUD.zoom += 0.035;
+			}
 
 		/*
 		if (curBeat % 4 == 0)//why not.

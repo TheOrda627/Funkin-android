@@ -55,6 +55,11 @@ class HealthIcon extends FlxSprite
 		animation.add('parents-christmas', [14, 15], 0, false, isPlayer);
 		animation.add('monster', [16, 17], 0, false, isPlayer);
 		animation.add('monster-christmas', [16, 17], 0, false, isPlayer);
+		animation.add('whitty', [24, 25], 0, false, isPlayer);
+		animation.add('whittyBSide', [30, 31], 0, false, isPlayer);
+		animation.add('whittyBSideCrazy', [32, 33], 0, false, isPlayer);
+		animation.add('whittyCrazy', [28, 29], 0, false, isPlayer);
+		animation.add('wide', [26, 27], 0, false, isPlayer);
 		
 		antialiasing = !pixelIcons.contains(char);
 		
