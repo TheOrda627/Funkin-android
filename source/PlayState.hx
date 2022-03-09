@@ -65,6 +65,8 @@ class PlayState extends MusicBeatState
 	
 	var songLength:Float = 0;
 	var kadeEngineWatermark:FlxText;
+	
+	public static var loadRep:Bool = false;
 
 	var halloweenLevel:Bool = false;
 	var triggeredAlready:Bool = false;
@@ -138,6 +140,7 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
+	var scoreTxt:FlxText
 	
 	var perfectTxt:FlxText;
 	var rankTxt:FlxText;
@@ -186,7 +189,6 @@ class PlayState extends MusicBeatState
 	var tankBop6:FlxSprite;
 	//end of tankbop
 	
-	public static var theFunne:Bool = true;
 	var funneEffect:FlxSprite;
 	var inCutscene:Bool = false;
 	var wBg:FlxSprite;
@@ -578,7 +580,7 @@ class PlayState extends MusicBeatState
             curStage = 'whitty';
             wBg = new FlxSprite(-500, -300).loadGraphic(Paths.image('whittyBack', 'bonusWeek'));
 
-            if (SONG.stage == 'ballisticAlley')
+				if (SONG.song.toLowerCase() == 'ballistic')
             {
               trace('pogging');
               var bgTex = Paths.getSparrowAtlas('BallisticBackground', 'bonusWeek');
@@ -656,7 +658,7 @@ class PlayState extends MusicBeatState
 		
 		var gfVersion:String = 'gf';
 
-		switch (SONG.gfVersion)
+		switch (curStage)
 		{
 			case 'gf-car':
 				gfVersion = 'gf-car';
@@ -664,12 +666,8 @@ class PlayState extends MusicBeatState
 				gfVersion = 'gf-christmas';
 			case 'gf-pixel':
 				gfVersion = 'gf-pixel';
-			case 'gf-kinky':
-				gfVersion = 'gf-kinky';
-			case 'whitty':
+			case 'alley' | 'ballisticAlley':
 				gfVersion = 'gf-whitty';
-			case 'gf':
-				gfVersion = 'gf';
 			default:
 				gfVersion = 'gf';
 		}
@@ -1626,6 +1624,7 @@ class PlayState extends MusicBeatState
 	var previousFrameTime:Int = 0;
 	var lastReportedPlayheadPosition:Int = 0;
 	var songTime:Float = 0;
+	var theFunneNumber:Float = 1;
 
 	function startSong():Void
 	{
