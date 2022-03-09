@@ -199,7 +199,6 @@ class PlayState extends MusicBeatState
 	public static var repPresses:Int = 0;
 	public static var repReleases:Int = 0;
 	
-	public static var campaignScore:Int = 0;
 
 	//for test song cuz it sucks. 4 bfs :)
 	private var boyfriend2:Boyfriend;
