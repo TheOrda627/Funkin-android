@@ -140,7 +140,7 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
-	var scoreTxt:FlxText
+	var scoreTxt:FlxText;
 	
 	var perfectTxt:FlxText;
 	var rankTxt:FlxText;
