@@ -29,7 +29,7 @@ class StoryMenuState extends MusicBeatState
 	];
 	var curDifficulty:Int = 1;
 
-	public static var weekUnlocked:Array<Bool> = [true, true];
+	public static var weekUnlocked:Array<Bool> = [true, false, false, false, false, false, false, true];
 
 	var weekCharacters:Array<Dynamic> = [
 		['', 'bf', 'gf'],
@@ -38,7 +38,7 @@ class StoryMenuState extends MusicBeatState
 
 	var weekNames:Array<String> = [
 		"How To Funk",
-		"Back Alley Blitz"
+		"Back Alley Blitz",
 	];
 
 	var txtWeekTitle:FlxText;

@@ -451,28 +451,13 @@ class TitleState extends MusicBeatState
 			// credTextShit.text = "Friday";
 			// credTextShit.screenCenter();
 			case 13:
-				if (lite){
-				    addMoreText('FNF LITE');
-				}
-				else{
 			    	addMoreText('Friday');
-				}
 			// credTextShit.visible = true;
 			case 14:
-				if (lite){
-				    addMoreText('DEV');
-				}
-				else{
 				    addMoreText('Night');
-				}
 			// credTextShit.text += '\nNight';
 			case 15:
-				if (lite){
-				    addMoreText('IS SHIT');
-				}
-				else{
 			    	addMoreText('Funkin\nAndroid');
-				}
 
 			case 16:
 				skipIntro();
