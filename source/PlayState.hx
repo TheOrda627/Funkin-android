@@ -577,14 +577,31 @@ class PlayState extends MusicBeatState
 				add(bg);
 			}
 				
-      case 'alley' | 'ballisticAlley':
+      case 'lo-fight' | 'overhead':
         {
           	defaultCamZoom = 0.9;
-            curStage = 'whitty';
+            curStage = 'alley';
+            
             wBg = new FlxSprite(-500, -300).loadGraphic(Paths.image('whittyBack', 'bonusWeek'));
-
-				if (SONG.song.toLowerCase() == 'ballistic')
-            {
+            
+              wstageFront = new FlxSprite(-650, 600).loadGraphic(Paths.image('whittyFront', 'bonusWeek'));
+              wstageFront.setGraphicSize(Std.int(wstageFront.width * 1.1));
+              wstageFront.updateHitbox();
+              wstageFront.antialiasing = true;
+              wstageFront.scrollFactor.set(0.9, 0.9);
+              wstageFront.active = false;
+              add(wBg);
+              add(wstageFront);
+            // bg.setGraphicSize(Std.int(bg.width * 2.5));
+            // bg.updateHitbox();   
+        
+        }
+        
+        case 'ballistic':
+          {
+              defaultCamZoom = 0.9;
+              curStage = 'ballisticAlley';
+              
               trace('pogging');
               var bgTex = Paths.getSparrowAtlas('BallisticBackground', 'bonusWeek');
               nwBg = new FlxSprite(-600, -200);
@@ -612,20 +629,7 @@ class PlayState extends MusicBeatState
               wBg.antialiasing = true;
               wBg.scrollFactor.set(0.9, 0.9);
               wBg.active = false;
-
-              wstageFront = new FlxSprite(-650, 600).loadGraphic(Paths.image('whittyFront', 'bonusWeek'));
-              wstageFront.setGraphicSize(Std.int(wstageFront.width * 1.1));
-              wstageFront.updateHitbox();
-              wstageFront.antialiasing = true;
-              wstageFront.scrollFactor.set(0.9, 0.9);
-              wstageFront.active = false;
-              add(wBg);
-              add(wstageFront);
             }
-            // bg.setGraphicSize(Std.int(bg.width * 2.5));
-            // bg.updateHitbox();   
-        
-        }
         
 				default:
 				{
