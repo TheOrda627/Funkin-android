@@ -624,12 +624,6 @@ class PlayState extends MusicBeatState
               add(wBg);
               add(wstageFront);
             }
-            else
-            {
-              wBg.antialiasing = true;
-              wBg.scrollFactor.set(0.9, 0.9);
-              wBg.active = false;
-            }
         
 				default:
 				{
